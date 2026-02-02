@@ -41,6 +41,15 @@ processes = []
 is_terminating = False
 
 
+def _apply_optional_api_keys(args: argparse.Namespace) -> None:
+    tavily_api_key = getattr(args, "tavily_api_key", None)
+    jina_api_key = getattr(args, "jina_api_key", None)
+    if tavily_api_key:
+        os.environ["TAVILY_API_KEY"] = tavily_api_key
+    if jina_api_key:
+        os.environ["JINA_API_KEY"] = jina_api_key
+
+
 def distribute_tasks(test_all_meta: dict) -> list:
     all_tasks = []
     for domain, examples in test_all_meta.items():
@@ -76,6 +85,7 @@ def run_env_tasks(
     active_environments = []
     env = None
     try:
+        _apply_optional_api_keys(args)
         # Use IMAGE_ID_MAP for AWS provider to get snapshot_name
         snapshot_name = None
         region = getattr(args, "region", None)
@@ -369,6 +379,22 @@ def config() -> argparse.Namespace:
         default=None,
         help="Optional model name for click_image_area grounding model",
     )
+    parser.add_argument(
+        "--tavily-api-key",
+        "--tavily_api_key",
+        dest="tavily_api_key",
+        type=str,
+        default=None,
+        help="Optional override for TAVILY_API_KEY env var.",
+    )
+    parser.add_argument(
+        "--jina-api-key",
+        "--jina_api_key",
+        dest="jina_api_key",
+        type=str,
+        default=None,
+        help="Optional override for JINA_API_KEY env var.",
+    )
 
     args = parser.parse_args()
 
@@ -574,6 +600,7 @@ if __name__ == "__main__":
     ####### The complete version of the list of examples #######
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
     args = config()
+    _apply_optional_api_keys(args)
 
     # save args to json in result_dir/action_space/observation_type/model/args.json
     path_to_args = os.path.join(

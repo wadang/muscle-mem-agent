@@ -16,16 +16,16 @@ MAX_TOOL_RESULT_CHARS = 100_000
 DEBUG_PAYLOAD_LIMIT = 4000
 logger = logging.getLogger("desktopenv.agent")
 TAVILY_API_URL = os.environ.get("TAVILY_API_URL", "https://api.tavily.com/search")
-TAVILY_API_KEY = os.environ.get(
-    "TAVILY_API_KEY", "your_default_tavily_api_key_here"
-)
 TAVILY_DEFAULT_MAX_RESULTS = 5
 TAVILY_MAX_RESULTS_LIMIT = 15
 JINA_API_URL = os.environ.get("JINA_API_URL", "https://r.jina.ai/")
-JINA_API_KEY = os.environ.get(
-    "JINA_API_KEY",
-    "your_default_jina_api_key_here",
-)
+
+
+def _load_api_key(env_name: str) -> str:
+    value = str(os.environ.get(env_name, "") or "").strip()
+    if value.startswith("your_default_") and value.endswith("_api_key_here"):
+        return ""
+    return value
 
 
 def _load_tavily_timeout() -> float:
@@ -363,7 +363,8 @@ class ExecutionToolProvider:
         include_answer: bool = True,
     ):
         """Search the public web for up-to-date information."""
-        if not TAVILY_API_KEY:
+        tavily_api_key = _load_api_key("TAVILY_API_KEY")
+        if not tavily_api_key:
             raise RuntimeError("TAVILY_API_KEY not set")
 
         query = str(query or "").strip()
@@ -379,7 +380,7 @@ class ExecutionToolProvider:
         max_results = _tavily_max_results(max_results)
 
         payload = {
-            "api_key": TAVILY_API_KEY,
+            "api_key": tavily_api_key,
             "query": query,
             "search_depth": search_depth,
             "max_results": max_results,
@@ -626,7 +627,8 @@ class ExecutionToolProvider:
     @tool_action
     def web_fetch(self, url: str, fields: Optional[List[str]] = None) -> str:
         """Fetch a webpage and optionally extract fields from the markdown; use scholarly_author/scholarly_publication for Google Scholar instead."""
-        if not JINA_API_KEY:
+        jina_api_key = _load_api_key("JINA_API_KEY")
+        if not jina_api_key:
             logger.error("web_fetch missing JINA_API_KEY")
             raise RuntimeError("JINA_API_KEY not set")
 
@@ -656,7 +658,7 @@ class ExecutionToolProvider:
             base_url += "/"
         request_url = f"{base_url}{url}"
         headers = {
-            "Authorization": f"Bearer {JINA_API_KEY}",
+            "Authorization": f"Bearer {jina_api_key}",
             "User-Agent": "curl/8.1.2",
         }
         masked_headers = dict(headers)

@@ -11,7 +11,7 @@ import sys
 
 from tqdm import tqdm
 
-import lib_run_single
+import osworld_setup.lib_run_single as lib_run_single
 from desktop_env.desktop_env import DesktopEnv
 from muscle_mem.agents.agent import AgentMm
 from muscle_mem.agents.grounding import OSWorldACI
@@ -32,6 +32,16 @@ def _str_to_bool(value):
     raise argparse.ArgumentTypeError(
         f"Boolean value expected for enable_thinking, got {value!r}"
     )
+
+
+def _apply_optional_api_keys(args: argparse.Namespace) -> None:
+    tavily_api_key = getattr(args, "tavily_api_key", None)
+    jina_api_key = getattr(args, "jina_api_key", None)
+    if tavily_api_key:
+        os.environ["TAVILY_API_KEY"] = tavily_api_key
+    if jina_api_key:
+        os.environ["JINA_API_KEY"] = jina_api_key
+
 
 # Almost deprecated since it's not multi-env, use run_multienv_*.py instead
 
@@ -216,6 +226,22 @@ def config() -> argparse.Namespace:
             "Optional flag to include enable_thinking in the grounding payload; "
             "values accepted are true/false (defaults to unset)."
         ),
+    )
+    parser.add_argument(
+        "--tavily-api-key",
+        "--tavily_api_key",
+        dest="tavily_api_key",
+        type=str,
+        default=None,
+        help="Optional override for TAVILY_API_KEY env var.",
+    )
+    parser.add_argument(
+        "--jina-api-key",
+        "--jina_api_key",
+        dest="jina_api_key",
+        type=str,
+        default=None,
+        help="Optional override for JINA_API_KEY env var.",
     )
     args = parser.parse_args()
 
@@ -456,6 +482,7 @@ if __name__ == "__main__":
     ####### The complete version of the list of examples #######
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
     args = config()
+    _apply_optional_api_keys(args)
 
     # save args to json in result_dir/action_space/observation_type/model/args.json
     path_to_args = os.path.join(
