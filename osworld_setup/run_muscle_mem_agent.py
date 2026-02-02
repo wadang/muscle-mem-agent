@@ -26,13 +26,28 @@ load_dotenv()
 #  Logger Configs {{{ #
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
+
 datetime_str: str = datetime.datetime.now().strftime("%Y%m%d@%H%M%S")
-logger.handlers.clear()
-logger.addHandler(logging.NullHandler())
-logging.lastResort = None
+
+stdout_handler = logging.StreamHandler(sys.stdout)
+
+stdout_handler.setLevel(logging.INFO)
+
+formatter = logging.Formatter(
+    fmt="\x1b[1;33m[%(asctime)s \x1b[31m%(levelname)s \x1b[32m%(module)s/%(lineno)d-%(processName)s\x1b[1;33m] \x1b[0m%(message)s"
+)
+
+stdout_handler.setFormatter(formatter)
+
+stdout_handler.addFilter(logging.Filter("desktopenv"))
+
+logger.addHandler(stdout_handler)
 #  }}} Logger Configs #
 
 logger = logging.getLogger("desktopenv.experiment")
+
+
+
 
 
 # Global variables for signal handling
