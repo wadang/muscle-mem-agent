@@ -1,0 +1,46 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "muscle-mem-agent"
+version = "0.1.0"
+description = "muscle-mem-agent"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = [
+  "anthropic>=0.25.0",
+  "backoff>=2.2.1",
+  "fastapi>=0.110.0",
+  "google-genai>=0.3.0",
+  "numpy>=1.24.0",
+  "opencv-python>=4.8.0",
+  "openai>=1.0.0",
+  "paddleocr>=2.7.0",
+  "paddlepaddle>=2.6.0",
+  "pandas>=1.5.0",
+  "pillow>=10.0.0",
+  "pyautogui>=0.9.54",
+  "pyobjc; platform_system == \"Darwin\"",
+  "pytesseract>=0.3.10",
+  "pywin32; platform_system == \"Windows\"",
+  "pywinauto; platform_system == \"Windows\"",
+  "scikit-learn>=1.3.0",
+  "scholarly>=1.7.11",
+  "selenium>=4.0.0",
+  "tiktoken>=0.6.0",
+  "together>=0.2.0",
+  "toml>=0.10.2",
+  "uvicorn>=0.27.0",
+  "websockets>=12.0",
+]
+
+[project.scripts]
+muscle-mem-agent = "muscle_mem.cli_app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["muscle_mem"]
+
+[project.optional-dependencies]
+dev = ["black>=24.0.0"]
