@@ -74,17 +74,6 @@ HIPPO Agent 采用结构化的 agent 框架：
 - 补充 `web_search / web_fetch`，用于外部知识获取与降低幻觉  
 - 细分点击能力（例如 “点击 UI 元素” 与 “点击图像区域”），便于针对不同交互类型使用不同后端策略
 
----
-
-## 评测（Evaluation）
-
-- Benchmark：OSWorld（Computer Use 代表性基准）  
-- 优化目标：**single-run / pass@1**（一次运行的成功率）  
-- 内部全量复跑：**>72.0%**
-
-> 说明：研究与评测中也常见 pass@k / multi-run 口径，用于衡量多次尝试下的能力上限；HIPPO 的核心目标是提升单次运行的稳定完成能力。
-
----
 
 ## 致谢（Acknowledgements）
 
