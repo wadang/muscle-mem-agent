@@ -560,7 +560,7 @@ class Worker(BaseModule):
             }
             self.generator_agent.messages.append(assistant_message)
             tool_use_id = tool_use.get("id", "tool_use")
-            logger.info("WORKER STEP %d PLAN RAW RESPONSE:\n%s", step_idx, plan)
+            # logger.info("WORKER STEP %d PLAN RAW RESPONSE:\n%s", step_idx, plan)
             error_message = None
             try:
                 tool_output = self.grounding_agent.call_tool(tool_name, tool_input)
