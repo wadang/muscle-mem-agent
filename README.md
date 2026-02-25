@@ -82,8 +82,4 @@ HIPPO Agent was developed on top of the Agent-S3 codebase. We sincerely thank th
 
 We also thank the OSWorld team for creating, maintaining, and supporting the OSWorld benchmark and its evaluation infrastructure, which has been invaluable for our development and benchmarking efforts.
 
----
 
-## Contact
-
-HCIII Team, Lenovo  magang5 Lenovo.com

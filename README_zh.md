@@ -81,8 +81,4 @@ HIPPO Agent 基于 Agent-S3 的代码基础进行开发。我们衷心感谢 Age
 
 同时感谢 OSWorld 团队创建并维护 OSWorld 基准与评测基础设施，为我们的开发与评测提供了重要支持。
 
----
 
-## 联系方式（Contact）
-
-HCIII Team, Lenovo  
