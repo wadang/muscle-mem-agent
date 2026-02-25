@@ -15,15 +15,14 @@ cd OSWorld
 创建并激活 conda 环境：
 
 ```bash
-conda create -n osworld python=3.12
+conda create -n osworld python=3.10
 conda activate osworld
 ```
 
 安装 OSWorld 依赖：
 
 ```bash
-python -m pip install --upgrade pip
-python -m pip install -e .
+pip install -r requirements.txt
 ```
 
 > 后续安装与运行步骤都使用同一个 `osworld` conda 环境。

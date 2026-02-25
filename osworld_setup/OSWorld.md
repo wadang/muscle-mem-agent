@@ -15,7 +15,7 @@ cd OSWorld
 Create and activate a conda environment:
 
 ```bash
-conda create -n osworld python=3.12
+conda create -n osworld python=3.10
 conda activate osworld
 ```
 
