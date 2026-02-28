@@ -3,6 +3,8 @@
 
 HIPPO Agent is a **memory-augmented computer-use agent** designed for long-horizon GUI tasks. Our primary focus is **single-run reliability (pass@1)**: persisting and reusing task-critical facts and intermediate state across steps to reduce forgetting, backtracking, and repeated exploration.
 
+> **Latest Result**: HIPPO Agent reached a new SOTA on OSWorld-Verified with **74.5%**, becoming the **first non-multiple-rollout agent** to achieve and exceed **human-level performance (72.36%)**.
+
 ---
 
 ## Key Features
@@ -81,5 +83,4 @@ We treat tools as a primary control surface and curate them for reliability:
 HIPPO Agent was developed on top of the Agent-S3 codebase. We sincerely thank the Agent-S3 authors and maintainers for open-sourcing their work.
 
 We also thank the OSWorld team for creating, maintaining, and supporting the OSWorld benchmark and its evaluation infrastructure, which has been invaluable for our development and benchmarking efforts.
-
 

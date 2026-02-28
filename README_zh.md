@@ -3,6 +3,8 @@
 
 HIPPO Agent 是一个面向长链路 GUI 任务的 **Memory-augmented Computer-Use Agent**。我们聚焦 **single-run / pass@1（单次运行成功率）** 与执行过程的稳定性：将关键事实与中间状态跨 step 保存与复用，减少遗忘、回退与重复探索。
 
+> **最新成绩**：HIPPO Agent 以 **74.5%** 的成绩成为 OSWorld-Verified 新 SOTA，并成为**首个非 Multiple rollout** 达到并超过**人类水平（72.36%）**的 Agent。
+
 ---
 
 ## 亮点（Highlights）
@@ -80,5 +82,4 @@ HIPPO Agent 采用结构化的 agent 框架：
 HIPPO Agent 基于 Agent-S3 的代码基础进行开发。我们衷心感谢 Agent-S3 的作者与维护者开源其工作。
 
 同时感谢 OSWorld 团队创建并维护 OSWorld 基准与评测基础设施，为我们的开发与评测提供了重要支持。
-
 
